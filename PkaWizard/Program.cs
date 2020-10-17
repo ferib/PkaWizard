@@ -3,6 +3,8 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace PkaWizard
 {
@@ -20,10 +22,15 @@ namespace PkaWizard
             var data3 = unpackStageThree(File.ReadAllBytes("stage2.mem"));
             Console.WriteLine("\n");
 
+            Console.WriteLine("unpacking to stage 4..");
+            var data4 = unpackStageFour(data3);
+            Console.WriteLine("\n");
+
             //Console.WriteLine(Encoding.ASCII.GetString(data));
             //File.WriteAllText("test", Encoding.ASCII.GetString(data));
             File.WriteAllBytes("stage1.out", data1);
-            File.WriteAllBytes("stage3.out", data1);
+            File.WriteAllBytes("stage3.out", data3);
+            File.WriteAllBytes("stage4.xml", data4);
 
             Console.WriteLine("Done");
             Console.ReadKey();
@@ -69,12 +76,20 @@ namespace PkaWizard
                     Console.Write(ch.ToString("X2") + " ");
                 result[i] = ch;
             }
-
-            // write .zlib
-            var dotzlib = result.ToList();
-            dotzlib.RemoveRange(0, 4);
-            File.WriteAllBytes("stage3.zlib",dotzlib.ToArray());
             return result;
+        }
+
+        private static byte[] unpackStageFour(byte[] pkaBuffer3)
+        {
+            byte[] xmlResult = new byte[(pkaBuffer3[0] * 0x1000000) + (pkaBuffer3[1] * 0x10000) + (pkaBuffer3[2] * 0x100) + (pkaBuffer3[3] * 0x1)]; // first 4 bytes are size
+            var zlibdata = pkaBuffer3.ToList();
+            zlibdata.RemoveRange(0, 4);
+
+            //InflaterInputBuffer inflate = new InflaterInputBuffer(new MemoryStream(zlibdata.ToArray()));
+            InflaterInputStream inflate = new InflaterInputStream(new MemoryStream(zlibdata.ToArray()));
+            inflate.Read(xmlResult, 0, xmlResult.Length);
+
+            return xmlResult;
         }
     }
 }
