@@ -5,17 +5,31 @@ using System.Linq;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using System.Runtime.InteropServices;
 
 namespace PkaWizard
 {
-    class Program
+   
+    static class Program
     {
+        //[DllImport("cryptopp.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        //public static extern IntPtr RSAEncryptString(string filename, string seed, string message);
+
+
+        //[DllImport("cryptopp.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl, EntryPoint = "StringSource")]
+        //public static extern void StringSource(byte[] buffer, int size, bool pumpAll);
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            Console.WriteLine("Pka/Pkt Decoder for Packet Tracer v7\n");
 
             Console.WriteLine("unpacking to stage 1..");
             var data1 = unpackStageOne(File.ReadAllBytes("stage0.mem"));
+            Console.WriteLine("\n");
+
+            Console.WriteLine("unpacking to stage 2..");
+            var data2 = unpackStageTwo(File.ReadAllBytes("stage1.out"));
             Console.WriteLine("\n");
 
             Console.WriteLine("unpacking to stage 3..");
@@ -48,16 +62,27 @@ namespace PkaWizard
                 byte a = (byte)(k * (byte)i);
                 byte c = (byte)(pkaBuffer.Length - a);
                 c ^= ch;
+                result[i] = c;
+#if DEBUG
                 if (i < 20)
                     Console.Write(c.ToString("X2") + " ");
                 else if (i == 20)
                     Console.WriteLine();
-                else if (i > pkaBuffer.Length - 20)
+                else if (i >= pkaBuffer.Length - 20)
                     Console.Write(c.ToString("X2") + " ");
-                result[i] = c;
+#endif
             }
            
             return result;
+        }
+
+        private static byte[] unpackStageTwo(byte[] pkaBuffer1)
+        {
+            //StringSource(pkaBuffer1, pkaBuffer1.Length, true);
+            Console.WriteLine("Figure out how to PumpAll and re-created in C#");
+
+            
+            return null;
         }
 
         private static byte[] unpackStageThree(byte[] pkaBuffer2)
@@ -68,13 +93,15 @@ namespace PkaWizard
                 byte ch = pkaBuffer2[i];
                 byte key = (byte)(pkaBuffer2.Length - i);
                 ch ^= key;
+                result[i] = ch;
+#if DEBUG
                 if (i < 20)
                     Console.Write(ch.ToString("X2") + " ");
                 else if (i == 20)
                     Console.WriteLine();
-                else if (i > pkaBuffer2.Length - 20)
+                else if (i >= pkaBuffer2.Length - 20)
                     Console.Write(ch.ToString("X2") + " ");
-                result[i] = ch;
+#endif
             }
             return result;
         }
@@ -85,9 +112,14 @@ namespace PkaWizard
             var zlibdata = pkaBuffer3.ToList();
             zlibdata.RemoveRange(0, 4);
 
-            //InflaterInputBuffer inflate = new InflaterInputBuffer(new MemoryStream(zlibdata.ToArray()));
             InflaterInputStream inflate = new InflaterInputStream(new MemoryStream(zlibdata.ToArray()));
             inflate.Read(xmlResult, 0, xmlResult.Length);
+
+#if DEBUG
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(Encoding.UTF8.GetString(xmlResult.ToList().GetRange(0, 420).ToArray()));
+            Console.ForegroundColor = ConsoleColor.Gray;
+#endif
 
             return xmlResult;
         }
