@@ -4,14 +4,39 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using PkaWizard.Pka;
+using System.Xml.Serialization;
 
 namespace PkaWizard
 {
+    /*
+         Content
+	        - ACTIVITY
+		        - INSTRUCTIONS
+			        - PAGE(contains instructions HTML)
+
+	        - PASS (hashed password)
+	
+	        - AUTHOR (small note + disclaimer about author)
+	
+	        - OPTIONS (lots of useless data)
+	
+	        - vERSIONField (pka file version info)
+
+        NOTE: Since we cannot deserialise a prefect objects, 
+              its not safe to serialize it and expect it to 
+              work in Packet Tracer, therefore we will only
+              read the content, create a filter, and replace
+              the original text with the new text.
+
+     */
     class PkaFile
     {
         public string Filename { get; private set; }
         private byte[] Buffer { get; set; }
         private byte[] XmlContent { get; set; }
+        public PACKETTRACER5_ACTIVITY Content { get; set; }
+        private XmlSerializer xmlSerializer { get; set; }
 
         public PkaFile(string filename)
         {
@@ -20,12 +45,16 @@ namespace PkaWizard
                 this.Buffer = File.ReadAllBytes(filename);
             else
                 throw new Exception("File not exist");
+
+            Unpack();
         }
 
         private void Unpack()
         {
-            if (unpackStageOne())
-                if (unpackStageTwo())
+            // TODO: fix stage two!!
+
+            //if (unpackStageOne())
+            //    if (unpackStageTwo())
                     if (unpackStageThree())
                         if (unpackStageFour())
                             Console.WriteLine("Unpacking done!");
@@ -99,8 +128,16 @@ namespace PkaWizard
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(Encoding.UTF8.GetString(this.XmlContent.ToList().GetRange(0, 420).ToArray()));
             Console.ForegroundColor = ConsoleColor.Gray;
+            File.WriteAllBytes("test.xml", this.XmlContent);
 #endif
 
+            // patch invalid character 0x03
+            for (int i = 0; i < this.XmlContent.Length; i++)
+                if (this.XmlContent[i] < 0x09)
+                    this.XmlContent[i] = 0x3F; // questionmark
+
+            this.xmlSerializer = new XmlSerializer(typeof(PACKETTRACER5_ACTIVITY));
+            this.Content = (PACKETTRACER5_ACTIVITY)this.xmlSerializer.Deserialize(new MemoryStream(this.XmlContent));
             return true;
         }
     }

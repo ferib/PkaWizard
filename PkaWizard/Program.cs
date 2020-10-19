@@ -21,7 +21,7 @@ namespace PkaWizard
 
         static void Main(string[] args)
         {
-
+            test();
             Console.WriteLine("Pka/Pkt Decoder for Packet Tracer v7\n");
 
             Console.WriteLine("unpacking to stage 1..");
@@ -48,6 +48,12 @@ namespace PkaWizard
 
             Console.WriteLine("Done");
             Console.ReadKey();
+        }
+
+        private static void test()
+        {
+            PkaFile pka = new PkaFile("stage2.mem");
+            
         }
 
         private static byte[] unpackStageOne(byte[] pkaBuffer)
