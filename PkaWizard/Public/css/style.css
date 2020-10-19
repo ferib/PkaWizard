@@ -1,0 +1,316 @@
+﻿
+body {
+    background-color: #f5f9f9;
+    color: #4A412A; /* 'tHe UgLiEsT cOlOuR iN tHe wOrLd' - Wikipedia */
+    /* font-family: "Comic Sans MS", cursive, sans-serif // to much cringe? */
+}
+
+a {
+    text-decoration: none;
+    color: #4A412A; /* Pantone 448 C*/
+}
+
+h1 {
+    margin-top: 0px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+@font-face {
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+#main-logo {
+    display: block;
+    margin: auto;
+}
+
+.container {
+    width: 620px;
+    margin: auto;
+}
+
+.post-content {
+    width: 820px;
+    margin-left: -100px;
+}
+
+.blogpost-date {
+    font-style: italic;
+    color: gray;
+    font-size: 10px;
+    float: right;
+    font-weight: 400;
+}
+
+.footer {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+a.footer-link:link {
+    color: #0000EE;
+}
+
+a.footer-link:visited {
+    color: #551A8B;
+}
+
+a.footer-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Winter is comming */
+#snow canvas {
+    display: block;
+    vertical-align: bottom;
+    z-index: -1;
+}
+
+#snow {
+    width: 99%;
+    height: 1500px;
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+#filter {
+    /*background-image: url('/css/searchicon.png');
+	background-position: 10px 12px;
+	background-repeat: no-repeat;*/
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    outline-width: 0;
+}
+
+.pagination > ul {
+    border: 1px solid;
+}
+
+    .pagination > ul > li {
+        list-style: none;
+    }
+
+.fancy-box {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 16px;
+    padding: 16px;
+    background-color: #fff;
+    border: 1px solid #d1d5da;
+    border-radius: 4px;
+}
+
+a.fancyBox {
+    cursor: pointer;
+}
+
+.FancyAdBox {
+    min-height: 99px;
+}
+
+.box-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.box-title-red {
+    font-size: 14px;
+    font-weight: 600;
+    color: #721c24;
+    text-decoration: none;
+}
+
+.box-text {
+    color: #586069;
+    font-size: 12px;
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+.box-footer {
+    color: #586069;
+    font-size: 12px;
+}
+
+.box-tag {
+    color: #586069;
+    text-decoration: none;
+    font-size: 10px;
+    padding-right: 12px;
+    display: inline-block;
+}
+
+.readability > p {
+    line-height: 24px;
+    font-size: 18px;
+}
+
+.article-footer {
+    display: block;
+    position: relative;
+    height: 24px;
+    top: -12px;
+}
+
+    .article-footer > a {
+        position: absolute;
+        right: 0;
+    }
+
+#img-pepe {
+    display: none;
+    position: fixed;
+    bottom: -309px;
+    left: 0;
+    animation-name: slideIn;
+    animation-duration: 0.7s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    opacity: 0.1;
+}
+
+@keyframes slideIn {
+    0% {
+        bottom: -309px;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+
+/* Badge */
+.badge-container {
+    display: flex;
+    font-family: Arial,Helvetica,sans-serif;
+    float: right;
+    opacity: 0.7;
+    border-radius: 6px;
+    background: #4A412A;
+    margin-right: 2px;
+}
+
+.badgeEnd {
+    display: inline-block;
+    min-width: 10px;
+    padding: 2px 2px 2px 0px;
+    font-size: 9px;
+    color: #f5f9f9;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: transparent;
+    border-radius: 5px;
+}
+
+.badgeStart {
+    display: inline-block;
+    padding: 2px 0px 2px 2px;
+    font-size: 9px;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+.badge-container:hover {
+    transition: 0.3s;
+    background: black;
+    opacity: 1;
+    margin: 0;
+}
+
+    .badge-container:hover > .badgeStart,
+    .badge-container:hover > .badgeEnd {
+        transition: 0.5s;
+        padding: 2px 2px 2px 2px;
+    }
+
+    .badge-container:hover > .badgeEnd {
+        transition: 0.5s;
+        background-color: #ff9000;
+    }
+
+@media screen and (max-width: 820px) {
+    body {
+        margin: 4px;
+    }
+
+    .post-content {
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .fancy-box {
+        padding: 8px;
+        background-color: #fff;
+        border: 1px solid #d1d5da;
+        border-radius: 4px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .footer {
+        padding: 20px; /* For iphone users that have the stupid bar*/
+    }
+
+    #img-pepe {
+        /* Slide a bit to the left size of the screen */
+        left: -15%;
+    }
+}
+
+@media print {
+    .fancy-box {
+        font-family: monospace;
+        border: none;
+    }
+
+    a, .box-title, .box-title-red {
+        color: black;
+    }
+
+    .box-text {
+        color: darkslategray;
+        margin-bottom: 8px;
+    }
+
+    .fancy-filter, .FancyAdBox, .article-footer, .badge-container,
+    #img-pepe, #main-logo, footer {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+        font-family: monospace;
+    }
+
+    .container {
+        width: auto;
+    }
+
+    .post-content {
+        margin: auto;
+    }
+}

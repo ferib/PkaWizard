@@ -7,7 +7,7 @@ using System.Text;
 using PkaWizard.Pka;
 using System.Xml.Serialization;
 
-namespace PkaWizard
+namespace PkaWizard.Pka
 {
     /*
          Content

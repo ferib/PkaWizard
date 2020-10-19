@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Runtime.InteropServices;
+using PkaWizard.Pka;
+using Nancy;
+using Nancy.Hosting.Self;
+using System.Threading;
 
 namespace PkaWizard
 {
@@ -21,9 +25,17 @@ namespace PkaWizard
 
         static void Main(string[] args)
         {
-            test();
             Console.WriteLine("Pka/Pkt Decoder for Packet Tracer v7\n");
+            var host = new NancyHost(new Uri("http://localhost:5100"));
 
+            Console.WriteLine("Starting server localhost:5100");
+            host.Start();
+
+            Console.WriteLine("Server started!");
+            Thread.Sleep(-1);
+
+            test();
+           
             Console.WriteLine("unpacking to stage 1..");
             var data1 = unpackStageOne(File.ReadAllBytes("stage0.mem"));
             Console.WriteLine("\n");
