@@ -1,0 +1,9 @@
+L:\Projects\PkaWizard\PkaWizardCLI\bin\Debug\PkaWizardCLI.exe.config
+L:\Projects\PkaWizard\PkaWizardCLI\bin\Debug\PkaWizardCLI.exe
+L:\Projects\PkaWizard\PkaWizardCLI\bin\Debug\PkaWizardCLI.pdb
+L:\Projects\PkaWizard\PkaWizardCLI\bin\Debug\ICSharpCode.SharpZipLib.dll
+L:\Projects\PkaWizard\PkaWizardCLI\obj\Debug\PkaWizardCLI.csprojAssemblyReference.cache
+L:\Projects\PkaWizard\PkaWizardCLI\obj\Debug\PkaWizardCLI.csproj.CoreCompileInputs.cache
+L:\Projects\PkaWizard\PkaWizardCLI\obj\Debug\PkaWizardCLI.csproj.CopyComplete
+L:\Projects\PkaWizard\PkaWizardCLI\obj\Debug\PkaWizardCLI.exe
+L:\Projects\PkaWizard\PkaWizardCLI\obj\Debug\PkaWizardCLI.pdb
