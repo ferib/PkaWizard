@@ -134,7 +134,7 @@ namespace PkaWizard.Pka
             // patch invalid character 0x03
             for (int i = 0; i < this.XmlContent.Length; i++)
                 if (this.XmlContent[i] < 0x09)
-                    this.XmlContent[i] = 0x3F; // questionmark
+                    this.XmlContent[i] = 0x3F; // ASCII questionmark
 
             this.xmlSerializer = new XmlSerializer(typeof(PACKETTRACER5_ACTIVITY));
             this.Content = (PACKETTRACER5_ACTIVITY)this.xmlSerializer.Deserialize(new MemoryStream(this.XmlContent));
