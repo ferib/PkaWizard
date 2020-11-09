@@ -44,9 +44,11 @@ namespace PkaWizardCli.Repacker
             {
                 try
                 {
+
                     string origFilename = file.Substring(0, file.Length - 4);
                     if (File.Exists(origFilename))
                         File.Delete(origFilename);
+                    Console.WriteLine($"Restoring file: {file}");
                     File.Copy(file, origFilename);
                 }
                 catch(Exception e)

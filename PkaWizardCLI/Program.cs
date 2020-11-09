@@ -76,6 +76,7 @@ namespace PkaWizardCli
                         case "-r":
                             PacketTracerRepacker repackRestore = new PacketTracerRepacker(RepackDir);
                             repackRestore.RestoreFiles();
+                            RepackDir = "N/A"; // prevent repack lateron
                             break;
                         case "-t":
                             if (args.Length > i + 1)
@@ -92,7 +93,7 @@ namespace PkaWizardCli
                     }
                 }
                 
-                Console.WriteLine($"[{i}] {args[i]}");
+                //Console.WriteLine($"[{i}] {args[i]}");
             }
 
             if (args.Length == 0)
@@ -116,10 +117,12 @@ namespace PkaWizardCli
                 else
                     Console.WriteLine("Repacking failed!");
             }
-            else
+            else if(RepackDir != "N/A")
                 Help();
 
-            Console.ReadKey();
+#if DEBUG
+            Console.ReadKey(); // handy to keep it open in VS
+#endif
         }
 
         static void Help()
