@@ -51,6 +51,9 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\ICSharpCode.SharpZipLib.dll.0.85.4.369\lib\net20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="PkaWizardLib">
+      <HintPath>..\PkaWizardLib\bin\Release\PkaWizardLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,12 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patcher\PacketTracerPatcher.cs" />
-    <Compile Include="Pka\Model.cs" />
-    <Compile Include="Pka\PkaFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repacker\PacketTracerRepacker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

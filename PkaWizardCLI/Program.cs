@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using PkaWizardCli;
-using PkaWizardCli.Pka;
-using PkaWizardCli.Patcher;
-using PkaWizardCli.Repacker;
+using PkaWizardLib.Patcher;
+using PkaWizardLib.Repacker;
 
 namespace PkaWizardCli
 {
@@ -15,15 +13,6 @@ namespace PkaWizardCli
     {
         static void Main(string[] args)
         {
-
-            //PacketTracerRepacker repacker = new PacketTracerRepacker("N:\\Cisco Packet Tracer 7.2.1");
-            //repacker.RepackDirectory(0x22);
-
-            //byte[] testd = File.ReadAllBytes("G:\\lab1-basicswitchconfig.pka");
-
-            //byte[] tesdd = new byte[0x923];
-            //File.WriteAllBytes("G:\\lab1-basicswitchconfig_empty.pka", tesdd);
-
             string RepackDir = "";
             string OutputPath = "";
             string PacketTracerPath = "";

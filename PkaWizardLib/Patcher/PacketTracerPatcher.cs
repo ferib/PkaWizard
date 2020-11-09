@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace PkaWizard.Patcher
+namespace PkaWizardLib.Patcher
 {
-    class PacketTracerPatcher
+    public class PacketTracerPatcher
     {
         /*      The patcher is minimalistic and is based on my article: https://ferib.dev/blog.php?l=post/Protecting_Packet_Tracer_Myself_Because_No_One_Gives_a_Shit
                 The goal was to point out how vulnerable the original Packet Tracer is, and my goal is to patch
@@ -23,7 +23,7 @@ namespace PkaWizard.Patcher
         {
             if (File.Exists(path))
                 this.PacketTracerPath = path;
-
+            
         }
 
         public bool PatchDecoding(byte xorKey = 0x42)
@@ -47,11 +47,11 @@ namespace PkaWizard.Patcher
             for (int i = 0; i < this.Content.Length - StageOnePatchLocation.Length; i++)
             {
                 // check if first and last byte of pattern match (optimal)
-                if (StageOnePatchLocation[0] == this.Content[i] && StageOnePatchLocation[StageOnePatchLocation.Length - 1] == this.Content[i + StageOnePatchLocation.Length - 1])
+                if(StageOnePatchLocation[0] == this.Content[i] && StageOnePatchLocation[StageOnePatchLocation.Length-1] == this.Content[i+ StageOnePatchLocation.Length-1])
                 {
                     // check if all other bytes in between match
                     matchLocation = i; // possible match
-                    for (int j = 1; j < StageOnePatchLocation.Length - 2; j++)
+                    for (int j = 1; j <  StageOnePatchLocation.Length-2; j++)
                     {
                         if (StageOnePatchLocation[j] != this.Content[j + i])
                         {
@@ -71,7 +71,7 @@ namespace PkaWizard.Patcher
             // error handle
             if (PatchLocations.Count == 0)
             {
-                Console.WriteLine("Patch location not found :(");
+                Console.WriteLine("Patch location not found OwO");
                 return false;
             }
 
@@ -92,8 +92,8 @@ namespace PkaWizard.Patcher
 
             // write patch to file
             string newFilename = this.OutputPath;
-            if (newFilename == "")
-                newFilename = this.PacketTracerPath.Split(".exe")[0] + "_patched.exe";
+            if(newFilename == "")
+                newFilename = this.PacketTracerPath.Split('.')[0] + "_patched.exe";
 
             File.WriteAllBytes(newFilename, this.Content);
 
@@ -101,5 +101,6 @@ namespace PkaWizard.Patcher
             Console.WriteLine($"File saved at {newFilename}");
             return true;
         }
+
     }
 }

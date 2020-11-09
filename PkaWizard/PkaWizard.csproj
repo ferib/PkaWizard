@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PkaWizardLib\PkaWizardLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="lib\cryptopp.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

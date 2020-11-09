@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using System.Runtime.InteropServices;
-using PkaWizard.Pka;
+using PkaWizardLib.Pka;
 using Nancy;
 using Nancy.Hosting.Self;
 using System.Threading;

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using PkaWizardCli.Pka;
+using PkaWizardLib.Pka;
 
-namespace PkaWizardCli.Repacker
+namespace PkaWizardLib.Repacker
 {
-    class PacketTracerRepacker
+    public class PacketTracerRepacker
     {
         private string ScanDirectory;
         private bool MakeBackup = true;
