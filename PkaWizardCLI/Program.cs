@@ -98,7 +98,7 @@ namespace PkaWizardCli
                 else
                     Console.WriteLine("Patching failed!");
             }
-            else if (RepackDir != "")
+            else if (RepackDir != "" && RepackDir != "N/A")
             {
                 PacketTracerRepacker repacker = new PacketTracerRepacker(RepackDir);
                 if (repacker.RepackDirectory(XorKey))
