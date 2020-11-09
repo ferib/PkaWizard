@@ -42,7 +42,20 @@ namespace PkaWizardCli.Repacker
 
             foreach(var file in files)
             {
-                File.Copy(file, file.Substring(file.Length - 4, 4));
+                try
+                {
+                    string origFilename = file.Substring(0, file.Length - 4);
+                    if (File.Exists(origFilename))
+                        File.Delete(origFilename);
+                    File.Copy(file, origFilename);
+                }
+                catch(Exception e)
+                {
+                    var oldColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Failed restoring: {file}\n\r{e.Message}");
+                    Console.ForegroundColor = oldColor;
+                }
             }
 
             return true;
@@ -70,11 +83,22 @@ namespace PkaWizardCli.Repacker
             // re-pack files
             foreach(var file in files)
             {
-                // backup, but only if .bak of file not exists, or we may corrupt original backup files
-                if (this.MakeBackup && (!File.Exists(file + ".bak")))
+                try
+                {
+                    // backup, but only if .bak of file not exists, or we may corrupt original backup files
+                    if (this.MakeBackup && (!File.Exists(file + ".bak")))
                     File.Copy(file, file + ".bak");
 
-                Repack(file, xorKey);
+                    byte[] newFile = Repack(file, xorKey);
+                    File.WriteAllBytes(file, newFile);
+                }
+                catch (Exception e)
+                {
+                    var oldColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Failed re-packing: {file}\n\r{e.Message}");
+                    Console.ForegroundColor = oldColor;
+                }
             }
 
             return true;

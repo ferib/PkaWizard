@@ -11,6 +11,9 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>repack -k 34 -t "G:\lab1-basicswitchconfig2.pka"</StartArguments>
+    <StartArguments>repack "N:\Cisco Packet Tracer 7.2.1 - Copy" -r</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartArguments>repack "N:\Cisco Packet Tracer 7.2.1 - Copy" -r</StartArguments>
   </PropertyGroup>
 </Project>

@@ -34,7 +34,7 @@ namespace PkaWizardCli
                 // Patching
                 if(args[0].ToLower() == "patch")
                 {
-                    if (i == 0)
+                    if (i == 1)
                         PacketTracerPath = args[i];
 
                     switch (args[i])
@@ -60,7 +60,7 @@ namespace PkaWizardCli
                 }
                 else if(args[0].ToLower() == "repack")
                 {
-                    if (i == 0)
+                    if (i == 1)
                         RepackDir = args[i];
 
                     switch (args[i])
@@ -74,7 +74,8 @@ namespace PkaWizardCli
                             Help();
                             break;
                         case "-r":
-                            Console.WriteLine("Error, Restore not yet added");
+                            PacketTracerRepacker repackRestore = new PacketTracerRepacker(RepackDir);
+                            repackRestore.RestoreFiles();
                             break;
                         case "-t":
                             if (args.Length > i + 1)
@@ -109,7 +110,11 @@ namespace PkaWizardCli
             }
             else if (RepackDir != "")
             {
-
+                PacketTracerRepacker repacker = new PacketTracerRepacker(RepackDir);
+                if (repacker.RepackDirectory(XorKey))
+                    Console.WriteLine("Repacking complete!");
+                else
+                    Console.WriteLine("Repacking failed!");
             }
             else
                 Help();
