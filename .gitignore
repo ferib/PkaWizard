@@ -1,3 +1,4 @@
 *.sln
 .vs
-packeges/
+packeges/*
+packages/
