@@ -11,6 +11,6 @@
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>"N:\Cisco Packet Tracer 7.2.1\bin\PacketTracer7.exe" -o "N:\Cisco Packet Tracer 7.2.1\bin\PacketTracer7_patched.exe" -k 0x22</StartArguments>
+    <StartArguments>repack -k 34 -t "G:\lab1-basicswitchconfig2.pka"</StartArguments>
   </PropertyGroup>
 </Project>

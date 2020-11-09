@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using PkaWizardCli.Pka;
 
 namespace PkaWizardCli.Repacker
 {
@@ -18,6 +19,33 @@ namespace PkaWizardCli.Repacker
             if(Directory.Exists(path))
                 this.ScanDirectory = path;
             this.Directorys = new List<string>();
+        }
+
+        public bool RestoreFiles()
+        {
+            string[] fileExtension = { ".bak" };
+            List<string> files = new List<string>();
+
+            // collect files
+            GetDirectorys(this.ScanDirectory);
+            foreach (var d in this.Directorys)
+            {
+                // check if file contains fileExtension
+                foreach (var f in Directory.GetFiles(d))
+                    foreach (var ext in fileExtension)
+                        if (f.Substring(f.Length - ext.Length, ext.Length) == ext)
+                        {
+                            files.Add(f);
+                            break;
+                        }
+            }
+
+            foreach(var file in files)
+            {
+                File.Copy(file, file.Substring(file.Length - 4, 4));
+            }
+
+            return true;
         }
 
         public bool RepackDirectory(byte xorKey)
@@ -42,17 +70,30 @@ namespace PkaWizardCli.Repacker
             // re-pack files
             foreach(var file in files)
             {
-                // backup
-                if(this.MakeBackup)
-                {
-                    if(!File.Exists(file + ".bak"))
-                    {
-                        // only backup if .bak of file not exists, or we may corrupt original backup files
-                    }
-                }
+                // backup, but only if .bak of file not exists, or we may corrupt original backup files
+                if (this.MakeBackup && (!File.Exists(file + ".bak")))
+                    File.Copy(file, file + ".bak");
+
+                Repack(file, xorKey);
             }
 
             return true;
+        }
+
+        public byte[] Repack(string file, byte xorKey)
+        {
+            // unpack stage 1
+            Console.WriteLine($"Re-packing file: {file} (key: {xorKey})");
+            PkaFile pkaFile = new PkaFile(file);
+            pkaFile.unpackStageOne();
+
+            for (int i = 0; i < pkaFile.Buffer.Length ; i++)
+            {
+                pkaFile.Buffer[i] ^= xorKey;
+            }
+            pkaFile.Buffer = pkaFile.Buffer.Reverse().ToArray(); // reverse ;D
+
+            return pkaFile.Buffer;
         }
 
         private void GetDirectorys(string path)

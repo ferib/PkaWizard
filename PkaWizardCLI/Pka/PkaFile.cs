@@ -33,7 +33,7 @@ namespace PkaWizardCli.Pka
     class PkaFile
     {
         public string Filename { get; private set; }
-        private byte[] Buffer { get; set; }
+        public byte[] Buffer { get; set; }
         private byte[] XmlContent { get; set; }
         public PACKETTRACER5_ACTIVITY Content { get; set; }
         private XmlSerializer xmlSerializer { get; set; }
@@ -46,7 +46,7 @@ namespace PkaWizardCli.Pka
             else
                 throw new Exception("File not exist");
 
-            Unpack();
+            //Unpack();
         }
 
         private void Unpack()
@@ -60,18 +60,19 @@ namespace PkaWizardCli.Pka
                             Console.WriteLine("Unpacking done!");
         }
 
-        private bool unpackStageOne()
+        public bool unpackStageOne()
         {
-            // cant fucking believe t his worked first try lolol
             byte k = (byte)this.Buffer.Length;
             int s = this.Buffer.Length;
+            byte[] result = new byte[this.Buffer.Length];
+
             for (int i = 0; i < this.Buffer.Length; i++)
-            {
+            { 
                 byte ch = this.Buffer[this.Buffer.Length - i - 1];
                 byte a = (byte)(k * (byte)i);
                 byte c = (byte)(this.Buffer.Length - a);
                 c ^= ch;
-                this.Buffer[i] = c;
+                result[i] = c;
 #if DEBUG
                 if (i < 20)
                     Console.Write(c.ToString("X2") + " ");
@@ -81,17 +82,19 @@ namespace PkaWizardCli.Pka
                     Console.Write(c.ToString("X2") + " ");
 #endif
             }
+            this.Buffer = result;
+
             return true;
         }
 
-        private bool unpackStageTwo()
+        public bool unpackStageTwo()
         {
             //StringSource(pkaBuffer1, pkaBuffer1.Length, true);
             Console.WriteLine("Figure out how to PumpAll and re-created in C#");
             return true;
         }
 
-        private bool unpackStageThree()
+        public bool unpackStageThree()
         {
             for (int i = 0; i < this.Buffer.Length; i++)
             {
@@ -111,7 +114,7 @@ namespace PkaWizardCli.Pka
             return true;
         }
 
-        private bool unpackStageFour()
+        public bool unpackStageFour()
         {
             this.XmlContent = new byte[(this.Buffer[0] * 0x1000000) + (this.Buffer[1] * 0x10000) + (this.Buffer[2] * 0x100) + (this.Buffer[3] * 0x1)]; // first 4 bytes are size
             var zlibdata = this.Buffer.ToList();

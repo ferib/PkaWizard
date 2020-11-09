@@ -71,7 +71,7 @@ namespace PkaWizardCli.Patcher
             // error handle
             if (PatchLocations.Count == 0)
             {
-                Console.WriteLine("Patch location not found :(");
+                Console.WriteLine("Patch location not found OwO");
                 return false;
             }
 

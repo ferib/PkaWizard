@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using PkaWizardCli;
 using PkaWizardCli.Pka;
@@ -15,8 +16,13 @@ namespace PkaWizardCli
         static void Main(string[] args)
         {
 
-            PacketTracerRepacker repacker = new PacketTracerRepacker("N:\\Cisco Packet Tracer 7.2.1");
-            repacker.RepackDirectory(0x42);
+            //PacketTracerRepacker repacker = new PacketTracerRepacker("N:\\Cisco Packet Tracer 7.2.1");
+            //repacker.RepackDirectory(0x22);
+
+            //byte[] testd = File.ReadAllBytes("G:\\lab1-basicswitchconfig.pka");
+
+            //byte[] tesdd = new byte[0x923];
+            //File.WriteAllBytes("G:\\lab1-basicswitchconfig_empty.pka", tesdd);
 
             string RepackDir = "";
             string OutputPath = "";
@@ -70,6 +76,16 @@ namespace PkaWizardCli
                         case "-r":
                             Console.WriteLine("Error, Restore not yet added");
                             break;
+                        case "-t":
+                            if (args.Length > i + 1)
+                            {
+                                PacketTracerRepacker repack = new PacketTracerRepacker(null);
+                                byte[] newfile = repack.Repack(args[i + 1], XorKey);
+                                if(!File.Exists(args[i + 1] + ".bak"))
+                                    File.Copy(args[i + 1], args[i + 1] + ".bak");
+                                File.WriteAllBytes(args[i + 1], newfile);
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -103,7 +119,7 @@ namespace PkaWizardCli
 
         static void Help()
         {
-            string HelpContent =    "PkaWizardCli Usage: [patch | repack] [file | dir] [-h] [-r] [-k] [-o] \n\r" +
+            string HelpContent =    "PkaWizardCli Usage: [patch | repack] [file | dir] [-h] [-r] [-k] [-k -t] [-o] \n\r" +
                                     "\n\r" +
                                     "Patches PacketTracer unpacking algorithm\n\r" +
                                     "\n\r" +
@@ -112,9 +128,10 @@ namespace PkaWizardCli
                                     "\trepack\tRepacking files\n\r" +
                                     "\n\r" +
                                     "\tfile\tPacket Tracer binary file path (patch only)\n\r" +
-                                    "\tdir\tDirectory to scan for .pks, .pkd and repack (repack only)\n\r" +
+                                    "\tdir\tDirectory to scan for .pks, .pkd, .pka and repack (repack only)\n\r" +
                                     "\n\r" +
                                     "Optional arguments: \n\r" +
+                                    "\t-t\tTarget specific file\n\r" +
                                     "\t-h\tShows this help message\n\r" +
                                     "\t-k\tXOR key (stage 1)\n\r" +
                                     "\t-o\tOutput File (patch only)\n\r" +
