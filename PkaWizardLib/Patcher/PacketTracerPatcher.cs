@@ -23,7 +23,6 @@ namespace PkaWizardLib.Patcher
         {
             if (File.Exists(path))
                 this.PacketTracerPath = path;
-            
         }
 
         public bool PatchDecoding(byte xorKey = 0x42)
@@ -83,7 +82,7 @@ namespace PkaWizardLib.Patcher
             string patchStrings = "";
             foreach (var patch in PatchLocations)
             {
-                patchStrings += $", 0x{patch.ToString("X16")} ";
+                patchStrings += $", 0x{patch.ToString("X16")}";
                 for (int i = 0; i < StageOnePatchXor.Length; i++)
                 {
                     this.Content[patch + i] = StageOnePatchXor[i];
@@ -92,12 +91,12 @@ namespace PkaWizardLib.Patcher
 
             // write patch to file
             string newFilename = this.OutputPath;
-            if(newFilename == "")
-                newFilename = this.PacketTracerPath.Split('.')[0] + "_patched.exe";
+            if (newFilename == "")
+                newFilename = this.PacketTracerPath.Substring(0, this.PacketTracerPath.Length - 4) + "_patched.exe";
 
             File.WriteAllBytes(newFilename, this.Content);
 
-            Console.WriteLine($"File patched at{patchStrings}");
+            Console.WriteLine($"File patched at{patchStrings} with XOR key: {xorKey}");
             Console.WriteLine($"File saved at {newFilename}");
             return true;
         }

@@ -116,9 +116,9 @@ namespace PkaWizardCli
 
         static void Help()
         {
-            string HelpContent =    "PkaWizardCli Usage: [patch | repack] [file | dir] [-h] [-r] [-k] [-k -t] [-o] \n\r" +
+            string HelpContent =    "PkaWizardCLI Usage: [patch | repack] [file | dir] [-h] [-r] [-k] [-k -t] [-o] \n\r" +
                                     "\n\r" +
-                                    "Patches PacketTracer unpacking algorithm\n\r" +
+                                    "DIY Security tool for Packet Tracer\n\r" +
                                     "\n\r" +
                                     "Positional arguments:\n\r" +
                                     "\tpatch\tPatching Packet Tracer\n\r" +
