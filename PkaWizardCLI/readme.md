@@ -1,6 +1,6 @@
 ﻿
 # What is this?
-PkaWizard is a set of tools designed to DIY secure Cisco's Packet Tracer *(version 7.2)*. The current versions of Packet Tracer does not keep up with modern security, making it easy to cheat exams, hence why I felt the need to create such a set of tools so anyone can modify their version of Packet Tracer and reduce exam fraud.
+PkaWizard is a set of tools designed to DIY secure Cisco's Packet Tracer *(version 7.2)*. The current versions of Packet Tracer does not keep up with modern security, making it easy to cheat exams, hence why I felt the need to create such a set of tools so anyone can modify their version of Packet Tracer to increase security and reduce exam fraud.
 
 # Goal
 The goal is to patch Packet Tracer in a way that a given .pka file can ONLY be used with the patched version of Packet Tracer. This allows us to implement additional security features inside Packet Tracer. This achieved by two basic steps:
