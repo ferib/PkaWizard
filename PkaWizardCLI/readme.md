@@ -35,4 +35,4 @@ $ ./PkaWizardCLI.exe repack -k 32 -t "C:\Cisco Packet Tracer 7.2.1"
 ```
 
 # Other
-You can find the whole research on [my blog](ttps://ferib.dev/blog.php?l=post/Protecting_Packet_Tracer_Myself_Because_No_One_Gives_a_Fuck)
+You can find the whole research on [my blog](https://ferib.dev/blog.php?l=post/Protecting_Packet_Tracer_Myself_Because_No_One_Gives_a_Fuck)
