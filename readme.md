@@ -16,6 +16,8 @@ The goal is to patch Packet Tracer in a way that a given .pka file can ONLY be u
 ## TL;DR
 The purple lines represent actions that come from my PkaWizard toolset:
 
+![Modern problems require modern solutions](https://github.com/ferib/PkaWizard/blob/master/notes/packet_tracer_packer_info.png?raw=true)
+
 - **Re-packing** functionality is used to convert an original .pka file to a custom encoded version *(or vise versa)*
 - **Patching** functionality is used to patch a custom algorithm inside an original PacketTracer binary *(or vise veras)*
 
