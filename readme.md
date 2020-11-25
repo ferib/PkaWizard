@@ -13,5 +13,11 @@ The goal is to patch Packet Tracer in a way that a given .pka file can ONLY be u
 - **PkaWizardCLI** - Command line interface
 - **PkaWizardLib** - Core
 
+## TL;DR
+The purple lines represent actions that come from my PkaWizard toolset:
+
+- **Re-packing** functionality is used to convert an original .pka file to a custom encoded version *(or vise versa)*
+- **Patching** functionality is used to patch a custom algorithm inside an original PacketTracer binary *(or vise veras)*
+
 # Research
 The full research can be found [here](https://ferib.dev/blog.php?l=post/Protecting_Packet_Tracer_Myself_Because_No_One_Gives_a_Fuck)

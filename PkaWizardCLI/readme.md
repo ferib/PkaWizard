@@ -19,7 +19,7 @@ To make the exam files *(.pka)* and other configuration files *(.pts, ptd)* work
 
 *(NOTE: The default output file will be ``C:\Cisco Packet Tracer 7.2.1\bin\PacketTracer7_patched.exe`` for this example)*
 ```
-$ ./PkaWizardCLI.exe patch "C:\Cisco Packet Tracer 7.2.1\bin\PacketTracer7.exe"
+$ ./PkaWizardCLI.exe patch "C:\Cisco Packet Tracer 7.2.1\bin\PacketTracer7.exe -k 32"
 ```
 **Re-packing** all files in Packet Tracer's directory with XOR key 32 
 ```
