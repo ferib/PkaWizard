@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using PkaWizardLib.Pka;
 using System.Xml.Serialization;
+using System.Security.Cryptography;
+using ManyMonkeys.Cryptography;
 
 namespace PkaWizardLib.Pka
 {
@@ -89,8 +91,25 @@ namespace PkaWizardLib.Pka
 
         public bool unpackStageTwo()
         {
-            //StringSource(pkaBuffer1, pkaBuffer1.Length, true);
-            Console.WriteLine("Figure out how to PumpAll and re-created in C#");
+            Twofish twofish = new Twofish()
+            {
+                Mode = System.Security.Cryptography.CipherMode.CBC,
+                Key = new byte[] { 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89, 0x89 },
+                IV = new byte[] { 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10 }
+            };
+
+            ICryptoTransform decrypt = twofish.CreateDecryptor();
+            System.IO.MemoryStream msD = new System.IO.MemoryStream();
+            CryptoStream cryptostreamDecr = new CryptoStream(msD, decrypt, CryptoStreamMode.Write);
+
+            cryptostreamDecr.Write(this.Buffer, 0, this.Buffer.Length);
+            cryptostreamDecr.Close();
+
+            byte[] tmp = msD.GetBuffer();
+            Console.WriteLine(tmp.Length);
+            for (int i = 0; i < this.Buffer.Length; i++)
+                this.Buffer[i] = tmp[i];
+
             return true;
         }
 
